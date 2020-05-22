@@ -84,4 +84,21 @@ describe('strategy', function() {
     });
   })
 
+  describe('passed a privateAuthServerURL string', () => {
+    var strategy = new KeycloakStrategy({
+      realm: 'myKeycloakRealm',
+      authServerURL: 'https://keycloak.example.com/auth',
+      privateAuthServerURL: 'https://private.keycloak.example.com/auth',
+      clientID: 'ABC123',
+      publicClient: 'false',
+      clientSecret: 'mySecret',
+      callbackURL: 'http://www.example.com',
+      sslRequired: 'none'
+    }, function() {});
+
+    it('tokenUrl should be set to public auth', function() {
+      expect(strategy.options.tokenURL).to.equal('https://private.keycloak.example.com/auth/realms/myKeycloakRealm/protocol/openid-connect/token');
+    });
+  });
+
 });
