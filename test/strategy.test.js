@@ -96,8 +96,11 @@ describe('strategy', function() {
       sslRequired: 'none'
     }, function() {});
 
-    it('tokenUrl should be set to public auth', function() {
+    it('tokenUrl should be set to private auth', function() {
       expect(strategy.options.tokenURL).to.equal('https://private.keycloak.example.com/auth/realms/myKeycloakRealm/protocol/openid-connect/token');
+    });
+    it('_userProfileURL should be set to private auth', function() {
+      expect(strategy._userProfileURL).to.equal('https://private.keycloak.example.com/auth/realms/myKeycloakRealm/protocol/openid-connect/userinfo');
     });
   });
 
